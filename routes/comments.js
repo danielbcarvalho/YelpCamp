@@ -20,6 +20,11 @@ router.post('/', isLoggedIn,async (req, res) => {
         let campground = await Campground.findById(req.params.id)
         //create new comment
         let comment = await Comment.create(req.body.comment)
+        //add username and id to comment
+        comment.author.id = req.user._id
+        comment.author.username = req.user.username
+        //save comment
+        comment.save()
         //connect new comment to campground
         campground.comments.push(comment) 
         campground.save()

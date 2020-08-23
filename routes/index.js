@@ -1,14 +1,12 @@
 const passport = require('passport'),
     express = require('express'),
-    router = express.Router() // changing app.() to router.()
+    router = express.Router(), // changing app.() to router.()
     User = require('../models/user')
 
+//root route
 router.get("/", (req, res) => res.render("landing"))
 
-//========================
-// AUTH ROUTES
-//========================
-//show regiuster form
+//show register form
 router.get('/register', (req, res) => {
     res.render('register')
 })
