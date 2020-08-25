@@ -1,23 +1,21 @@
-//requiring models
-const campground = require("./models/campground");
-const comment = require("./models/comment");
 
-const express = require("express"),
+const express = require("express"), // web framework for Node.js -> 'app.get()'
     app = express(),
-    bodyParser = require("body-parser"),
-    mongoose = require("mongoose"),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    Campground = require("./models/campground"),
-    Comment = require('./models/comment'),
-    User = require('./models/user'),
-    seedDB = require('./seeds')
+    bodyParser = require("body-parser"), //  body-parser extract the entire body portion of an incoming request stream and exposes it on req. body
+    mongoose = require("mongoose"), // Is a tool that helps us interact with MongoDB inside the JS file (node)
+    passport = require('passport'), // packages to add authentication
+    LocalStrategy = require('passport-local'), // local strategy for passport, could be facebook strategy instead...
+    Campground = require("./models/campground"), // require model schema campground for db
+    Comment = require('./models/comment'), // requeire model comment schema
+    User = require('./models/user'), //require model user schema
+    seedDB = require('./seeds') // seed automatically the db
 
 //Requiring routes
 const commentRoutes = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
     indexRoutes = require('./routes/index')
 
+//Connecting to local database yelp_camp with mongoose
 mongoose.connect('mongodb://localhost:27017/yelp_camp', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -49,10 +47,12 @@ app.use((req, res, next) => {
     next();
 })
 
+//passing automatically the url to the routes
 app.use('/', indexRoutes)
 app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/comments', commentRoutes)
 
+//server on local port 8080
 app.listen(8080, function () {
     console.log("The YelpCamp Server Has Started!");
 });
