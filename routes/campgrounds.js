@@ -38,6 +38,24 @@ router.get("/:id", (req, res) => {
     .catch(err => console.log("log...", err))
 })
 
+//EDIT CAMPGROUND ROUTE
+router.get('/:id/edit', (req, res) => {
+    Campground.findById(req.params.id)
+    .then((foundCampground) => res.render('campgrounds/edit', {campground: foundCampground}))
+    .catch((err) => res.redirect('/campgrounds'))
+})
+
+// UPDATE CAMPGROUND ROUTE
+router.put('/:id', (req, res) => {
+    // find and update the correct campground
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground)
+    .then((updatedCampground) => {
+        res.redirect('/campgrounds/' + req.params.id)
+    })
+    .catch(err => res.redirect('/campgrounds'))
+    // redirect to show page
+})
+
 //middleware 'secret'
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) return next()

@@ -5,6 +5,7 @@ const express = require("express"), // web framework for Node.js -> 'app.get()'
     mongoose = require("mongoose"), // Is a tool that helps us interact with MongoDB inside the JS file (node)
     passport = require('passport'), // packages to add authentication
     LocalStrategy = require('passport-local'), // local strategy for passport, could be facebook strategy instead...
+    methodOverride = require('method-override'), // to 'read' method PUT and DELETE from forms
     Campground = require("./models/campground"), // require model schema campground for db
     Comment = require('./models/comment'), // requeire model comment schema
     User = require('./models/user'), //require model user schema
@@ -26,7 +27,7 @@ mongoose.connect('mongodb://localhost:27017/yelp_camp', {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))
-
+app.use(methodOverride('_method'))
 //seedDB(); //seed the database
 
 //PASPORT CONFIGURATION
