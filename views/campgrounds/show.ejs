@@ -18,9 +18,15 @@
                     <h4><a href=""><%= campground.name %></a></h4>
                     <p><%= campground.description %></p>
                     <p>
-                        <em>Submitted by <%= campground.author.username %></em> 
+                        <em>Submitted by <%= campground.author.username %></em>
                     </p>
-                    <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                    <!-- show edit and delete just for the campground owner's user  -->
+                    <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
+                         <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                         <form id="delete-form" action="/campgrounds/<%= campground._id %>?_method=delete" method="post">
+                         <button class="btn btn-danger">Delete</button>
+                         </form>
+                    <% } %>
                 </div>
             </div>
             <div class="well">
@@ -29,13 +35,13 @@
                 </div>
                 <hr>
                 <% campground.comments.forEach((comment) => {  %>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <strong><%= comment.author.username %></strong>
-                            <span class="pull-right">10 days ago</span>
-                            <p><%= comment.text %></p>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong><%= comment.author.username %></strong>
+                        <span class="pull-right">10 days ago</span>
+                        <p><%= comment.text %></p>
                     </div>
+                </div>
                 <% }) %>
             </div>
         </div>
