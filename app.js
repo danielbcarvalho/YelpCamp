@@ -3,6 +3,7 @@ const express = require("express"), // web framework for Node.js -> 'app.get()'
     app = express(),
     bodyParser = require("body-parser"), //  body-parser extract the entire body portion of an incoming request stream and exposes it on req. body
     mongoose = require("mongoose"), // Is a tool that helps us interact with MongoDB inside the JS file (node)
+    flash = require('connect-flash'), // To show flash messages for users
     passport = require('passport'), // packages to add authentication
     LocalStrategy = require('passport-local'), // local strategy for passport, could be facebook strategy instead...
     methodOverride = require('method-override'), // to 'read' method PUT and DELETE from forms
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))
 app.use(methodOverride('_method'))
+app.use(flash())
 //seedDB(); //seed the database
 
 //PASPORT CONFIGURATION
@@ -42,9 +44,11 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-//passing req.user inside every route
+//passing data inside every ejs file
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
     next();
 })
 

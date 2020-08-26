@@ -17,10 +17,12 @@ router.post('/register', (req, res) => {
     //passport-local-mongoose
     User.register(newUser, req.body.password, (err, user) => {
         if(err){
-            console.log("log...", err)
+            console.log(err)
+            req.flash('error', err.message)
             return res.render('register')
         } 
         passport.authenticate('local')(req, res, () =>{
+            req.flash('success', 'Welcome to YelpCamp' + user.username)
             res.redirect('/campgrounds')
         })
 
@@ -42,13 +44,8 @@ router.post('/login', passport.authenticate('local',
 // logic logout route
 router.get('/logout', (req, res) => {
     req.logOut()
+    req.flash('success', "Logged you out")
     res.redirect('/campgrounds')
 })
-
-//middleware 'secret'
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()) return next()
-    res.redirect('/login')
-}
 
 module.exports = router

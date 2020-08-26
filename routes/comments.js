@@ -32,12 +32,15 @@ router.post('/', middleware.isLoggedIn,async (req, res) => {
         campground.comments.push(comment) 
         campground.save()
         //redirect campground show page
+        req.flash('success', 'Successfully added comment')
         res.redirect('/campgrounds/' + campground._id)
     } catch(err) {
+        req.flash('error', 'Something went wrong')
         console.log("log...", err);
     }   
 })
 
+//comments edit
 router.get('/:comment_id/edit', middleware.checkCommentOwnership,(req, res) => {
     Comment.findById(req.params.comment_id)
     .then(foundComment => {
@@ -45,16 +48,20 @@ router.get('/:comment_id/edit', middleware.checkCommentOwnership,(req, res) => {
     })
     .catch(err => res.redirect('back'))
 })
-
+//update comment
 router.put('/:comment_id', middleware.checkCommentOwnership,(req, res) => {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment)
     .then((foundComment) => res.redirect('/campgrounds/' + req.params.id))
     .catch(err => res.redirect('back'))
 })
 
+//delete comment
 router.delete('/:comment_id', middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndRemove(req.params.comment_id)
-    .then(foundComment => res.redirect('/campgrounds/' + req.params.id))
+    .then(foundComment => {
+        req.flash('success', 'Comment deleted')
+        res.redirect('/campgrounds/' + req.params.id)  
+    })
     .catch(err => res.redirect('back'))
 })
 
