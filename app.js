@@ -58,6 +58,8 @@ app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/comments', commentRoutes)
 
 //server on local port 8080
-app.listen(8080, function () {
-    console.log("The YelpCamp Server Has Started!");
-});
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8080;
+}
+app.listen(port);
