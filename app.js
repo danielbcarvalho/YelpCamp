@@ -10,7 +10,7 @@ const express = require("express"), // web framework for Node.js -> 'app.get()'
     Campground = require("./models/campground"), // require model schema campground for db
     Comment = require('./models/comment'), // requeire model comment schema
     User = require('./models/user'), //require model user schema
-    seedDB = require('./seeds'), // seed automatically the db
+    seedDB = require('./seeds') // seed automatically the db
     //uri = "mongodb+srv://vidaleve:vidaleve@vida-leve.d9con.mongodb.net/yelp_camp?retryWrites=true&w=majority"
 
 //Requiring routes
