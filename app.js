@@ -11,7 +11,6 @@ const express = require("express"), // web framework for Node.js -> 'app.get()'
     Comment = require('./models/comment'), // requeire model comment schema
     User = require('./models/user'), //require model user schema
     seedDB = require('./seeds') // seed automatically the db
-    //uri = "mongodb+srv://vidaleve:vidaleve@vida-leve.d9con.mongodb.net/yelp_camp?retryWrites=true&w=majority"
 
 //Requiring routes
 const commentRoutes = require('./routes/comments'),
@@ -20,15 +19,6 @@ const commentRoutes = require('./routes/comments'),
 
 console.log(process.env.DATABASEURL)
 
-//Connecting to atlas database yelp_camp with mongoose
-// mongoose.connect(uri || 'mongodb://localhost:27017/yelp_camp', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// })
-//     .then(() => console.log('Connected to Atlas Mongodb!'))
-//     .catch(error => console.log(error.message));
-
-//Connecting to local database yelp_camp with mongoose
 mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
