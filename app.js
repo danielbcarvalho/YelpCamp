@@ -12,14 +12,13 @@ const express = require("express"), // web framework for Node.js -> 'app.get()'
     User = require('./models/user'), //require model user schema
     seedDB = require('./seeds') // seed automatically the db
 
+const uri = process.env.DATABASEURL || 'mongodb://localhost:27017/yelp_camp'
 //Requiring routes
 const commentRoutes = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
     indexRoutes = require('./routes/index')
 
-console.log(process.env.DATABASEURL)
-
-mongoose.connect(process.env.DATABASEURL, {
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
