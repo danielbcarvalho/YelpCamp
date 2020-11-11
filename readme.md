@@ -1,3 +1,4 @@
+![Screenshot](Screenshot1.png "Screenshot")
 # YelpCamp
 YelpCamp is a platform of campgrounds for connecting campground owners and users from all around the world. It is a project  from the Web Development Bootcamp made with Node.js  that shows registered campgrounds and uses authentication for campgrounds authors and user's comments.
 
@@ -15,6 +16,8 @@ YelpCamp is a platform of campgrounds for connecting campground owners and users
 * Logout
 * View registered campgrouds
 * Create, edit and delete campgrounds and comments from a login user
+
+![Screenshot](Screenshot2.png "Screenshot")
 
 ## Installation - npm
 * express
